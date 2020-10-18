@@ -16,35 +16,35 @@ int wordcount();
 int sentencecount();
 int colemanindexcalc();
 
-int main (void)
+int main(void)
 {
-  string  text = get_string("text: ");
-  int letters = lettercount(text);
-  int words = wordcount(text);
-  int sentence = sentencecount(text);
-  int colemanindex = colemanindexcalc(letters, words, sentence);
+    string  text = get_string("text: ");
+    int letters = lettercount(text);
+    int words = wordcount(text);
+    int sentence = sentencecount(text);
+    int colemanindex = colemanindexcalc(letters, words, sentence);
 
-  if (colemanindex >= 16)
+    if (colemanindex >= 16)
     {
-        printf("Grade 16+");
+        printf("Grade 16+\n");
     }
     else if (colemanindex <= 1)
     {
-        printf("Before Grade 1");
+        printf("Before Grade 1\n");
     }
     else
     {
-        printf("Grade %i\n",colemanindex);
+        printf("Grade %i\n", colemanindex);
     }
 }
 
 
-int lettercount (string text)
+int lettercount(string text)
 {
     int letters = 0;
     for (int i = 0; i < strlen(text); i++)
     {
-        if(isalpha(text[i]))
+        if (isalpha(text[i]))
         {
             letters++;
         }
@@ -52,12 +52,12 @@ int lettercount (string text)
     return letters;
 }
 
-int wordcount (string text)
+int wordcount(string text)
 {
     int words = 1;              //starts with 1, because the first word begins without a space.
     for (int i = 0; i < strlen(text); i++)
     {
-        if(isspace(text[i]))
+        if (isspace(text[i]) && text[i] != 0)
         {
             words++;
         }
@@ -65,12 +65,12 @@ int wordcount (string text)
     return words;
 }
 
-int sentencecount (string text)
+int sentencecount(string text)
 {
     int sentence = 0;
     for (int i = 0; i < strlen(text); i++)
     {
-        if(text[i] == '.' || text[i] == '!')
+        if (text[i] == '.' || text[i] == '!' || text[i] == '?')
         {
             sentence++;
         }
@@ -81,11 +81,13 @@ int sentencecount (string text)
 int colemanindexcalc(int letters, int words, int sentence)
 {
     // gemiddeld aantal letters per 100 woorden: letter/woorden*100
-    float avgLetters = letters * 100 / words;
+    float avgLetters = (float)letters * 100 / words;
     // gemiddelde aantal zinnen per 100 woorden is
-    float avgSentence = sentence * 100 / words;
+    float avgSentence = (float)sentence * 100 / words;
     // index = 0.0588 * L - 0.296 * S - 15.8
+
     float index = round(0.0588 * avgLetters - 0.296 * avgSentence - 15.8);
+    //printf(" %f\n",index);
 
     return index;
 }
