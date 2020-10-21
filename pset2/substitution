@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <cs50.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+    if (argc != 2 || strlen(argv[1]) != 26)
+    {
+        printf("Usage: ./subtitution key\n");
+        return 1;
+    }
+
+    string key = (argv[1]);
+    for(int i = 0, k = strlen(key); i < k; i++)
+    {
+        if(key[i]>=65&&key[i]<=90)
+        {
+         key[i]=key[i]+32;
+        }
+    }
+    string  plainText = get_string("Plaintext: ");
+
+    printf("ciphertext: ");
+    for (int i = 0, n = strlen(plainText); i < n; i++)
+    {
+        if(isalpha(plainText[i]))
+        {
+            printf("%c",key[atoi(plainText)]);
+        }
+        else
+        {
+            printf("%c", plainText[i]);
+        }
+
+    }
+    printf("\n");
+    return 0;
+}
+
+//ABCDEFGHIJKLMNOPQRSTUVWXYZ
+//VCHPRZGJNTLSKFBDQWAXEUYMOI
